@@ -53,6 +53,7 @@ under the License.
             <module>artemis-ra-rar</module>
             <module>inter-broker-bridge</module>
             <module>tomcat</module>
+            <module>distributed-lock-example-etcd</module>
          </modules>
       </profile>
    </profiles>

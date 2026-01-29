@@ -84,6 +84,7 @@ under the License.
             <module>amqp-bridge</module>
             <module>disaster-recovery</module>
             <module>ha-with-mirroring</module>
+            <module>ha-with-mirroring-etcd</module>
          </modules>
       </profile>
    </profiles>
