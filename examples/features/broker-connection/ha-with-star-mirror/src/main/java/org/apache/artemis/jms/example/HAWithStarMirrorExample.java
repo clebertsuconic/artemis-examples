@@ -97,7 +97,7 @@ public class HAWithStarMirrorExample {
       }
    }
 
-   private static void configureLocksFolder(String[] args) throws Exception {
+   public static void configureLocksFolder(String[] args) throws Exception {
       File lockFolder = new File("./target/locks");
       lockFolder.mkdirs();
       FileUtil.findReplace(new File(args[0] + "/etc/broker.xml"), "CHANGEME", lockFolder.getAbsolutePath());
