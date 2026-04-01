@@ -79,6 +79,8 @@ under the License.
                            <instance>${basedir}/target/server0</instance>
                            <allowAnonymous>true</allowAnonymous>
                            <configuration>${basedir}/target/classes/artemis/server0</configuration>
+                           <noWeb>false</noWeb>
+                           <portOffset>1</portOffset>
                         </configuration>
                      </execution>
                      <execution>
@@ -91,6 +93,8 @@ under the License.
                            <instance>${basedir}/target/server1</instance>
                            <allowAnonymous>true</allowAnonymous>
                            <configuration>${basedir}/target/classes/artemis/server1</configuration>
+                           <noWeb>false</noWeb>
+                           <portOffset>2</portOffset>
                         </configuration>
                      </execution>
                      <execution>
@@ -103,6 +107,8 @@ under the License.
                            <instance>${basedir}/target/server2</instance>
                            <allowAnonymous>true</allowAnonymous>
                            <configuration>${basedir}/target/classes/artemis/server2</configuration>
+                           <noWeb>false</noWeb>
+                           <portOffset>3</portOffset>
                         </configuration>
                      </execution>
                      <execution>
