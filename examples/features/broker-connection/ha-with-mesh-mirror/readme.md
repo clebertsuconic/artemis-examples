@@ -1,18 +1,28 @@
-# High Availability with Star Mirror and Distributed Locks
+# High Availability with Mesh Mirror and Distributed Locks
 
-This example demonstrates how to achieve high availability (HA) using star topology mirroring combined with distributed locks from the Lock Coordinator feature. The distributed locks ensure that only one broker accepts client connections at a time, providing automatic failover without split-brain scenarios across three brokers.
+This example demonstrates how to achieve high availability (HA) using mesh topology mirroring combined with distributed locks from the Lock Coordinator feature. The distributed locks ensure that only one broker accepts client connections at a time, providing automatic failover without split-brain scenarios across three brokers.
 
 ## Overview
 
 This example configures three brokers (server0, server1, and server2) that:
-- Mirror all messaging operations to each other using broker connections in a star topology
+- Mirror all messaging operations to each other using broker connections in a mesh topology
 - Share a distributed file-based lock to coordinate which broker accepts client connections
 - Automatically failover client connections when the active broker fails
 - Use lock coordinator on broker connections to ensure mirroring only happens when the broker is active
 
+## Topology Diagram
+
+![Mesh Topology](src/main/resources/images/mesh-topology.svg)
+
+**Key Points:**
+- Only Server 0 (holding the lock) actively mirrors data to Server 1 and Server 2 (solid blue arrows)
+- Server 1 and Server 2 have passive broker connections (dashed gray arrows - not actively mirroring)
+- When Server 0 fails, Server 1 or Server 2 acquires the lock and becomes active
+- The new active server's connections become active and start mirroring
+
 ## How It Works
 
-### Star Topology Mirroring Configuration
+### Mesh Topology Mirroring Configuration
 
 All three brokers are configured with mirroring to the other two brokers using AMQP broker connections. The key feature is using the **lock-coordinator attribute on broker connections**, which ensures that mirroring only happens when the broker holding the lock is active.
 
@@ -54,7 +64,7 @@ All three brokers are configured with mirroring to the other two brokers using A
 </broker-connections>
 ```
 
-This ensures that messages, queues, and other operations are replicated across all three brokers in a star topology.
+This ensures that messages, queues, and other operations are replicated across all three brokers in a mesh topology.
 
 ### Lock Coordinator for HA
 
@@ -64,7 +74,7 @@ The key feature of this example is the use of **distributed locks** to control w
 <lock-coordinators>
    <lock-coordinator name="clients-lock">
       <class-name>org.apache.activemq.artemis.lockmanager.file.FileBasedLockManager</class-name>
-      <lock-id>star-mirror-cluster-clients</lock-id>
+      <lock-id>mesh-mirror-cluster-clients</lock-id>
       <check-period>1000</check-period>
       <properties>
          <property key="locks-folder" value="/path/to/shared/locks"/>
@@ -97,7 +107,7 @@ When the active broker (holding the lock) fails:
 1. The lock is automatically released
 2. One of the backup brokers acquires the lock and starts accepting connections
 3. The client automatically reconnects to the now-active broker
-4. All messages are available due to star mirroring
+4. All messages are available due to mesh mirroring
 
 ## Setup
 
@@ -107,7 +117,7 @@ You have the following options to run this example:
 
 ### Non-interactive way
 
-You can run this example in a non-interactive way, with HAWithStarMirrorExample starting, stopping the servers, and consume messages from your servers during failover.
+You can run this example in a non-interactive way, with HAWithMeshMirrorExample starting, stopping the servers, and consume messages from your servers during failover.
 
 ```shell
 mvn verify -Pautomated
@@ -206,7 +216,7 @@ To observe the high availability in action:
 
 ## Example Flow
 
-1. All three brokers start with star mirroring configured
+1. All three brokers start with mesh mirroring configured
 2. One broker (typically server0) acquires the distributed lock and accepts client connections
 3. The client connects and sends 30 messages to a queue
 4. Server0 is killed (simulating a failure)
@@ -220,7 +230,7 @@ The lock coordinator supports different lock types (file-based, ZooKeeper). This
 
 The `check-period` parameter (in milliseconds) controls how frequently the lock holder verifies it still owns the lock, affecting how quickly failover occurs when a broker crashes.
 
-**Important:** This example demonstrates the star topology with lock coordinator on broker connections. Unlike the dual mirror example, the lock-coordinator attribute is specified on the broker connections themselves, ensuring that mirroring only occurs when a broker holds the lock. This prevents multiple brokers from simultaneously trying to mirror to each other when they don't have the client lock.
+**Important:** This example demonstrates the mesh topology with lock coordinator on broker connections. Unlike the dual mirror example, the lock-coordinator attribute is specified on the broker connections themselves, ensuring that mirroring only occurs when a broker holds the lock. This prevents multiple brokers from simultaneously trying to mirror to each other when they don't have the client lock.
 
 ## Change the configuration to ZooKeeper
 
@@ -230,7 +240,7 @@ If you want to try ZooKeeper, you need to change the lock-coordinator configurat
 <lock-coordinators>
    <lock-coordinator name="clients-lock">
       <class-name>org.apache.activemq.artemis.lockmanager.zookeeper.CuratorDistributedLockManager</class-name>
-      <lock-id>star-mirror-cluster-clients</lock-id>
+      <lock-id>mesh-mirror-cluster-clients</lock-id>
       <check-period>1000</check-period>
 
       <properties>

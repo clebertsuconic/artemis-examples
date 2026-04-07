@@ -63,7 +63,7 @@ under the License.
             <module>amqp-bridge</module>
             <module>disaster-recovery</module>
             <module>ha-with-dual-mirror</module>
-            <module>ha-with-star-mirror</module>
+            <module>ha-with-mesh-mirror</module>
          </modules>
       </profile>
       <profile>
@@ -85,7 +85,7 @@ under the License.
             <module>amqp-bridge</module>
             <module>disaster-recovery</module>
             <module>ha-with-dual-mirror</module>
-            <module>ha-with-star-mirror</module>
+            <module>ha-with-mesh-mirror</module>
          </modules>
       </profile>
    </profiles>

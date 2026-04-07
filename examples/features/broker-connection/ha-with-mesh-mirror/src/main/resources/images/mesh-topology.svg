@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <!-- Define arrow markers -->
+    <marker id="arrowActive" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2563eb" />
+    </marker>
+    <marker id="arrowPassive" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-size="24" font-weight="bold" font-family="Arial, sans-serif" fill="#1e293b">
+    Mesh Topology with Lock Coordinator
+  </text>
+
+  <!-- Server 0 (Active) -->
+  <g id="server0">
+    <rect x="300" y="80" width="200" height="120" rx="10" fill="#3b82f6" stroke="#1e40af" stroke-width="3"/>
+    <text x="400" y="110" text-anchor="middle" font-size="18" font-weight="bold" font-family="Arial, sans-serif" fill="#ffffff">
+      Server 0 (ACTIVE)
+    </text>
+    <text x="400" y="135" text-anchor="middle" font-size="14" font-family="Arial, sans-serif" fill="#dbeafe">
+      Port: 61616
+    </text>
+    <text x="400" y="155" text-anchor="middle" font-size="16" font-family="Arial, sans-serif" fill="#fbbf24">
+      🔒 Has Lock
+    </text>
+    <text x="400" y="180" text-anchor="middle" font-size="12" font-family="Arial, sans-serif" fill="#dbeafe">
+      Accepts Client Connections
+    </text>
+  </g>
+
+  <!-- Server 1 (Passive) -->
+  <g id="server1">
+    <rect x="80" y="400" width="200" height="120" rx="10" fill="#94a3b8" stroke="#475569" stroke-width="3"/>
+    <text x="180" y="430" text-anchor="middle" font-size="18" font-weight="bold" font-family="Arial, sans-serif" fill="#ffffff">
+      Server 1 (PASSIVE)
+    </text>
+    <text x="180" y="455" text-anchor="middle" font-size="14" font-family="Arial, sans-serif" fill="#f1f5f9">
+      Port: 61617
+    </text>
+    <text x="180" y="480" text-anchor="middle" font-size="14" font-family="Arial, sans-serif" fill="#f1f5f9">
+      No Lock
+    </text>
+    <text x="180" y="500" text-anchor="middle" font-size="11" font-family="Arial, sans-serif" fill="#f1f5f9">
+      Waiting for Lock
+    </text>
+  </g>
+
+  <!-- Server 2 (Passive) -->
+  <g id="server2">
+    <rect x="520" y="400" width="200" height="120" rx="10" fill="#94a3b8" stroke="#475569" stroke-width="3"/>
+    <text x="620" y="430" text-anchor="middle" font-size="18" font-weight="bold" font-family="Arial, sans-serif" fill="#ffffff">
+      Server 2 (PASSIVE)
+    </text>
+    <text x="620" y="455" text-anchor="middle" font-size="14" font-family="Arial, sans-serif" fill="#f1f5f9">
+      Port: 61618
+    </text>
+    <text x="620" y="480" text-anchor="middle" font-size="14" font-family="Arial, sans-serif" fill="#f1f5f9">
+      No Lock
+    </text>
+    <text x="620" y="500" text-anchor="middle" font-size="11" font-family="Arial, sans-serif" fill="#f1f5f9">
+      Waiting for Lock
+    </text>
+  </g>
+
+  <!-- Active connections from Server 0 -->
+  <!-- Server 0 to Server 1 -->
+  <path d="M 350 200 L 220 400" stroke="#2563eb" stroke-width="4" fill="none" marker-end="url(#arrowActive)"/>
+  <text x="260" y="280" font-size="13" font-weight="bold" font-family="Arial, sans-serif" fill="#2563eb">
+    Active Mirror
+  </text>
+
+  <!-- Server 0 to Server 2 -->
+  <path d="M 450 200 L 580 400" stroke="#2563eb" stroke-width="4" fill="none" marker-end="url(#arrowActive)"/>
+  <text x="500" y="280" font-size="13" font-weight="bold" font-family="Arial, sans-serif" fill="#2563eb">
+    Active Mirror
+  </text>
+
+  <!-- Passive connections (dashed) -->
+  <!-- Server 1 to Server 2 -->
+  <path d="M 280 460 L 520 460" stroke="#94a3b8" stroke-width="3" fill="none" stroke-dasharray="8,4" marker-end="url(#arrowPassive)"/>
+  <text x="400" y="485" text-anchor="middle" font-size="12" font-family="Arial, sans-serif" fill="#64748b">
+    Passive Mirror
+  </text>
+
+  <!-- Server 2 to Server 1 -->
+  <path d="M 520 480 L 280 480" stroke="#94a3b8" stroke-width="3" fill="none" stroke-dasharray="8,4" marker-end="url(#arrowPassive)"/>
+
+  <!-- Server 1 to Server 0 -->
+  <path d="M 240 400 L 340 200" stroke="#94a3b8" stroke-width="3" fill="none" stroke-dasharray="8,4" marker-end="url(#arrowPassive)"/>
+  <text x="260" y="320" font-size="12" font-family="Arial, sans-serif" fill="#64748b">
+    Passive
+  </text>
+
+  <!-- Server 2 to Server 0 -->
+  <path d="M 560 400 L 460 200" stroke="#94a3b8" stroke-width="3" fill="none" stroke-dasharray="8,4" marker-end="url(#arrowPassive)"/>
+  <text x="540" y="320" font-size="12" font-family="Arial, sans-serif" fill="#64748b">
+    Passive
+  </text>
+</svg>

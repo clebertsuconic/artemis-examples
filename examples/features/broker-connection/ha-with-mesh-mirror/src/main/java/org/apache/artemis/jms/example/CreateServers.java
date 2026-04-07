@@ -21,6 +21,6 @@ package org.apache.artemis.jms.example;
  */
 public class CreateServers {
    public static void main(final String[] args) throws Exception {
-      HAWithStarMirrorExample.configureLocksFolder(args);
+      HAWithMeshMirrorExample.configureLocksFolder(args);
    }
 }

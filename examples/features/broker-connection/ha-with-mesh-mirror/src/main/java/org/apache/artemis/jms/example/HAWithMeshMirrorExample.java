@@ -30,9 +30,9 @@ import org.apache.activemq.artemis.util.ServerUtil;
 import org.apache.activemq.artemis.utils.FileUtil;
 
 /**
- * Example of star topology mirroring with three servers using lock coordinator on broker connections
+ * Example of mesh topology mirroring with three servers using lock coordinator on broker connections
  */
-public class HAWithStarMirrorExample {
+public class HAWithMeshMirrorExample {
 
    private static Process server0;
 
@@ -51,11 +51,11 @@ public class HAWithStarMirrorExample {
       try {
 
          // Start the three servers
-         server0 = ServerUtil.startServer(args[0], HAWithStarMirrorExample.class.getSimpleName() + "-peer0", 0, 0);
+         server0 = ServerUtil.startServer(args[0], HAWithMeshMirrorExample.class.getSimpleName() + "-peer0", 0, 0);
          Thread.sleep(2_000);
-         server1 = ServerUtil.startServer(args[1], HAWithStarMirrorExample.class.getSimpleName() + "-peer1", 1, 0);
+         server1 = ServerUtil.startServer(args[1], HAWithMeshMirrorExample.class.getSimpleName() + "-peer1", 1, 0);
          Thread.sleep(2_000);
-         server2 = ServerUtil.startServer(args[2], HAWithStarMirrorExample.class.getSimpleName() + "-peer2", 2, 0);
+         server2 = ServerUtil.startServer(args[2], HAWithMeshMirrorExample.class.getSimpleName() + "-peer2", 2, 0);
 
          // We connect to the broker holding the lock on the distributed lock
          ConnectionFactory factory = new org.apache.qpid.jms.JmsConnectionFactory(
