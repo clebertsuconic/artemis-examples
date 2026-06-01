@@ -61,6 +61,7 @@ under the License.
             <module>embedded-simple</module>
             <module>exclusive-queue</module>
             <module>expiry</module>
+            <module>hierarchical-limits</module>
             <module>http-transport</module>
             <module>interceptor</module>
             <module>interceptor-client</module>
@@ -138,6 +139,7 @@ under the License.
             <module>embedded-simple</module>
             <module>exclusive-queue</module>
             <module>expiry</module>
+            <module>hierarchical-limits</module>
             <module>http-transport</module>
             <module>interceptor</module>
             <module>interceptor-client</module>
